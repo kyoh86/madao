@@ -2,7 +2,7 @@
 
 Markdown refactoring tool
 
-This tool is still in the PoC phase, and there's no stuff that can be used in practice yet.
+This tool is still in the PoC phase, and there's no stuff that can be used in practice.
 
 ## Requirements
 
