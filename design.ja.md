@@ -15,7 +15,7 @@ source               = entire lines of file
                      | tail lines of file
                      | middle lines of file ;
 
-destination          = tail of file | a line of file
+destination          = tail of file | a line of file ;
 
 entire lines of file = filename ;
 head lines of file   = filename , ":" , "~" , end line ;
@@ -31,11 +31,9 @@ line                 = positive | negative ;
 
 digit sequence       = digit | digit sequence , digit ;
 negative             = "-" , positive ;
-positive             = digit excluding zero | digit excluding zero , digit
-sequence ;
+positive             = digit excluding zero | digit excluding zero , digit sequence ;
 
-digit excluding zero = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
-;
+digit excluding zero = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
 digit                = "0" | digit excluding zero ;
 
 filename             = ? all characters ?
