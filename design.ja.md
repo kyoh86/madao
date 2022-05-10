@@ -3,8 +3,9 @@
 ## コマンド体系
 
 ```console
-$ madao mv [options...] <source> [<destination>]
-$ madao move [options...] <source> [<destination>]
+$ madao mv [options...] <source> <destination>
+$ madao move [options...] <source> <destination>
+$ madao format-patch [options...] <source> <destination>
 
 $ madao mv SOURCE dest.md:9
 ```
@@ -20,7 +21,7 @@ destination          = tail of file | a line of file ;
 entire lines of file = filename ;
 head lines of file   = filename , ":" , "~" , end line ;
 tail lines of file   = filename , ":" , start line , "~" ;
-middle lines of file = filename , ":" start line , "~" , end line ;
+middle lines of file = filename , ":" , start line , "~" , end line ;
 
 tail of file         = filename ;
 a line of file       = filename , ":" , line ;
@@ -46,21 +47,21 @@ filename             = ? all characters ?
 ### sourceの切り出し
 
 指定された場所の内容を切り出す。
-ファイル全体の場合はファイルを削除する。
+ファイル全体の場合はファイルを削除するパッチを作る。
 
 partial-sourceと呼ぶ。
 
 ### linkの変更を検出する
 
-• 移動元から移動先は同じ階層か
-• 移動元から移動先は同じファイルか
+- 移動元から移動先は同じ階層か
+- 移動元から移動先は同じファイルか
 
 を別々に使うので
 
-• source-dir
-• dest-dir
-• source-name
-• dest-name
+- source-dir
+- dest-dir
+- source-name
+- dest-name
 
 を別々に持ったほうが良さそう
 
@@ -79,10 +80,19 @@ Pandoc Lua Filterにより、IDのリストが得られる。
 
 ### 他のドキュメントから、sourceへのリンクを置換する
 
-- if sourceの指定がファイル全体: ひたすらリンク先ファイル名がsourceに一致するものを置き換えていく
-- elseif リンク先がIDを含む場合: partial-source-idsにないものは置き換えない
+- if sourceの指定がファイル全体: ひたすらリンク先ファイル名がsourceに一致するものを置き換えていくパッチを生成する
+- elseif リンク先がIDを含む場合: partial-source-idsにあるものだけを置き換えていくパッチを生成する
 - else: (parameterize?) 置き換えない
 
 ### destに書き込む
 
-partial-sourceをdestに書き込む。
+partial-sourceをdestに書き込むパッチを生成する
+
+### すべてのパッチを処理する
+
+apply
+
+## patchモード
+
+moveでいきなり動かすのも、どこかでエラーが発生すると中途半端なファイル状態が出来上がるリスクがある。
+patchを出すだけで終わるモードがあったほうが良い。
